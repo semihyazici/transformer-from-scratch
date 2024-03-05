@@ -18,7 +18,7 @@ def greedy_decoding(sent, model, tokenizer_src, tokenizer_tgt,max_seq_length):
         next_word = prob.argmax(dim=-1)[0][-1].item()
         result = torch.cat([result, torch.ones(1, 1).type_as(src.data).fill_(next_word)], dim=1)
 
-        if next_word == tokenizer_tgt.sep_token_id :  # Assuming 102 corresponds to [SEP]
+        if next_word == tokenizer_tgt.sep_token_id : 
             break
         generated_sentence = tokenizer_tgt.decode(result.detach().cpu()[0],skip_special_tokens=True)
     return {
